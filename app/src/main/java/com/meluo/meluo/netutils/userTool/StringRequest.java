@@ -16,21 +16,22 @@ import java.util.Map;
  * Email:kongmuo@126.com
  * Date:15-10-13
  */
-public class StringRequest implements Request{
+public class StringRequest implements Request {
 
     private Callback callback;
     private Context context;
     private String url;
     private String method;
-    private HashMap<String,Object> mapHeader;
-    private String charset="utf-8";
-    private HashMap<String,Object> map;
-    private static Handler handler=new Handler();
-    public StringRequest(Context context, String url,Callback callback) {
+    private HashMap<String, Object> mapHeader;
+    private String charset = "utf-8";
+    private HashMap<String, Object> map;
+    private static Handler handler = new Handler();
+
+    public StringRequest(Context context, String url, Callback callback) {
         this.callback = callback;
         this.context = context;
         this.url = url;
-        this.method =HttpTools.GET;
+        this.method = HttpTools.GET;
     }
 
     public StringRequest(Callback callback, Context context, String url, HashMap<String, Object> map) {
@@ -38,19 +39,20 @@ public class StringRequest implements Request{
         this.context = context;
         this.url = url;
         this.map = map;
-        this.method= HttpTools.POST;
-        mapHeader=new HashMap<>();
+        this.method = HttpTools.POST;
+        mapHeader = new HashMap<>();
     }
+
     @Override
     public void comment() {
 
-        byte b[]=null;
-        if(HttpTools.GET.equals(method)){
-           b=HttpTools.doGet(url);
-        }else if(HttpTools.POST.equals(method)){
-            b=HttpTools.doPost(url,map,mapHeader,charset);
+        byte b[] = null;
+        if (HttpTools.GET.equals(method)) {
+            b = HttpTools.doGet(url, mapHeader);
+        } else if (HttpTools.POST.equals(method)) {
+            b = HttpTools.doPost(url, map, mapHeader, charset);
         }
-        if(b==null){
+        if (b == null) {
 
             handler.post(new Runnable() {
                 @Override
@@ -59,28 +61,30 @@ public class StringRequest implements Request{
                 }
             });
 
-        }else{
+        } else {
             final byte[] finalB = b;
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-
                     callback.success(new String(finalB), url);
                 }
             });
 
         }
     }
+
     /**
      * 设置头部信息
      */
     @Override
-    public void setHeader(HashMap<String,Object> mheader) {
-       mapHeader.putAll(mheader);
+    public void setHeader(HashMap<String, Object> mheader) {
+        mapHeader.putAll(mheader);
     }
 
-   public interface Callback{
-        public void success(String str,String url);
+
+    public interface Callback {
+        public void success(String str, String url);
+
         public void fail(String mesg);
     }
 }

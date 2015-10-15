@@ -10,14 +10,10 @@ package com.meluo.meluo.netutils.utils.bitmapUtils;
 import android.graphics.BitmapFactory;
 
 /**
- * Í¼Æ¬µÄÑ¹ËõÈ¡Ñù
+ * å›¾ç‰‡çš„åŽ‹ç¼©å–æ ·
  */
 public class BitmapSamp {
-
-    public static BitmapFactory.Options op;
-
-
-    public static void setBitmapSamp(byte data[],int width,int height){
+    public  BitmapFactory.Options setBitmapSamp(byte data[],int width,int height){
         BitmapFactory.Options options=new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeByteArray(data, 0, data.length, options);
@@ -30,7 +26,7 @@ public class BitmapSamp {
         options.inSampleSize =
                 calculateInSampleSize(options, reqW, reqH);
         options.inJustDecodeBounds = false;
-        op= options;
+        return options;
 
     }
 
@@ -41,8 +37,8 @@ public class BitmapSamp {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
-        // µ±ÇëÇóµÄ¿í¶È¡¢¸ß¶È > 0 Ê±ºò£¬½øÐÐËõ·Å£¬
-        // ·ñÔò£¬Í¼Æ¬²»½øÐÐËõ·Å£»
+        // å½“è¯·æ±‚çš„å®½åº¦ã€é«˜åº¦ > 0 æ—¶å€™ï¼Œè¿›è¡Œç¼©æ”¾ï¼Œ
+        // å¦åˆ™ï¼Œå›¾ç‰‡ä¸è¿›è¡Œç¼©æ”¾ï¼›
         if (reqWidth > 0 && reqHeight > 0) {
             if (height > reqHeight || width > reqWidth) {
 

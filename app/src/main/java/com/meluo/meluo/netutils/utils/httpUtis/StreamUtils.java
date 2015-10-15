@@ -1,7 +1,5 @@
 package com.meluo.meluo.netutils.utils.httpUtis;
 
-import android.util.Xml;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -87,9 +85,11 @@ public class StreamUtils {
      */
     public static void setRequestHeader(Map<String,Object>map,HttpURLConnection connection,String charsetName) throws UnsupportedEncodingException {
 
-        for(String key:map.keySet()){
-            String value= URLEncoder.encode(map.get(key).toString(),charsetName);
-            connection.setRequestProperty(key,value);
+        if(map!=null||map.size()>0) {
+            for (String key : map.keySet()) {
+                String value = URLEncoder.encode(map.get(key).toString(), charsetName);
+                connection.setRequestProperty(key, value);
+            }
         }
         connection.setRequestProperty("Charset",charsetName);
     }

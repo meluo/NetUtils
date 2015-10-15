@@ -26,7 +26,7 @@ public final class HttpTools {
      * @param url 网络请求的url
      * @return 返回byte[] 是网络请求结果
      */
-    public static byte[] doGet(String url) {
+    public static byte[] doGet(String url,HashMap<String,Object> headmap) {
         byte [] ret=null;
         if (url != null) {
             HttpURLConnection conn=null;
@@ -36,7 +36,9 @@ public final class HttpTools {
 
                 conn.setRequestMethod("GET");
                 conn.setConnectTimeout(5000);
+               // StreamUtils.setRequestHeader(headmap, conn, "utf-8");
                 conn.connect();
+
                 int code = conn.getResponseCode();
                 if (code==200){
                    ret= StreamUtils.readStream(conn.getInputStream());

@@ -21,7 +21,6 @@ public class MemaryCache {
 
     private static LruCache<String,Bitmap> lruCache;//一级缓存 使用lru 算法
     private static Map<String,SoftReference<Bitmap>> softCache;//二级缓存 软引用缓存
-
     /**
      *
      * @param i 设置Lrucahe 的大小 size=i*1M
@@ -35,8 +34,6 @@ public class MemaryCache {
                 protected int sizeOf(String key, Bitmap value) {
                     return value.getRowBytes() * value.getHeight();
                 }
-
-
                 @Override
                 protected void entryRemoved(boolean evicted, String key, Bitmap oldValue, Bitmap newValue) {
 
@@ -45,8 +42,6 @@ public class MemaryCache {
                     super.entryRemoved(evicted, key, oldValue, newValue);
                 }
             };
-        }else {
-            throw new IllegalStateException("lrucache 已经实例化了 请尝试下其他方法");
         }
     }
 
@@ -66,15 +61,14 @@ public class MemaryCache {
                }
            };
 
-       }else {
-           throw new IllegalStateException("lrucache 已经实例化了 请尝试下其他方法");
        }
     }
 
     /**
      * 根据url 从缓存中读取数据
      */
-    public static Bitmap gitBitmap(String url){
+    public static Bitmap gitBitmap(String url,int width,int height){
+
         //从lrucache 获取图片
         Bitmap bitmap=lruCache.get(url);
         if(bitmap==null){
@@ -88,7 +82,7 @@ public class MemaryCache {
             }else{
                 byte b[]=FileCache.getInstance().load(url);
                 if(b!=null) {
-                    bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+                    bitmap = BitmapFactory.decodeByteArray(b, 0, b.length,new BitmapSamp().setBitmapSamp(b, width, height));
                     lruCache.put(url, bitmap);
                 }
             }
@@ -98,9 +92,8 @@ public class MemaryCache {
 
     public static void putBitmap(String url,byte []b){
         //TODO 设置二次采样
-        Bitmap bitmap=BitmapFactory.decodeByteArray(b,0,b.length,BitmapSamp.op);
+        Bitmap bitmap=BitmapFactory.decodeByteArray(b,0,b.length);
         lruCache.put(url,bitmap);
-
         FileCache.getInstance().save(url,b);
     }
 

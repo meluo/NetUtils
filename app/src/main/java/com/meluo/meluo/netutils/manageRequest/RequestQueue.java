@@ -29,8 +29,6 @@ public class RequestQueue  {
     public void addRequest(Request request){
        pool.execute(new Net(request));
     }
-
-
 class Net implements Runnable{
     private Request request;
     public Net(Request request) {

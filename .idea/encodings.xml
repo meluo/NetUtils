@@ -2,6 +2,8 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/meluo/meluo/netutils/MainActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/meluo/meluo/netutils/userTool/BitmapRequest.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/meluo/meluo/netutils/utils/bitmapUtils/BitmapSamp.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/meluo/meluo/netutils/utils/httpUtis/HttpTools.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/meluo/meluo/netutils/utils/httpUtis/StreamUtils.java" charset="UTF-8" />
   </component>

@@ -32,7 +32,6 @@ public class MainActivity extends ActionBarActivity {
                 textView.setText(mesg);
             }
         });
-
         RequestQueue.getInstance().addRequest(request);
         String path="http://desk.fd.zol-img.com.cn/g5/M00/08/04/ChMkJ1YYut2ITmS1AAnqUpOxiT4AADgnQN7HxAACepq145.jpg";
       BitmapRequest request2 = new BitmapRequest(this, path, new BitmapRequest.Callback() {
@@ -46,7 +45,6 @@ public class MainActivity extends ActionBarActivity {
         }
       });
     request2.setSize(10,20);
-
     RequestQueue.getInstance().addRequest(request2);
 }
 }
