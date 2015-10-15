@@ -33,10 +33,9 @@ public final class HttpTools {
             try {
                 URL ur=new URL(url);
                 conn= (HttpURLConnection) ur.openConnection();
-
                 conn.setRequestMethod("GET");
                 conn.setConnectTimeout(5000);
-               // StreamUtils.setRequestHeader(headmap, conn, "utf-8");
+                StreamUtils.setRequestHeader(headmap, conn, "utf-8");
                 conn.connect();
 
                 int code = conn.getResponseCode();

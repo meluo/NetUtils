@@ -5,11 +5,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.meluo.meluo.netutils.manageRequest.RequestQueue;
 import com.meluo.meluo.netutils.userTool.BitmapRequest;
 import com.meluo.meluo.netutils.userTool.StringRequest;
+
+import java.util.HashMap;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -20,7 +21,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         final TextView textView = (TextView) findViewById(R.id.text1);
         final ImageView imageView = (ImageView) findViewById(R.id.image);
-        String url = "http://www.baidu.com";
+        String url = "http://baidu.com";
         StringRequest request = new StringRequest(this, url, new StringRequest.Callback() {
             @Override
             public void success(String str, String url) {
@@ -32,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
                 textView.setText(mesg);
             }
         });
+        HashMap<String,Object> objectHashMap=new HashMap<>();
         RequestQueue.getInstance().addRequest(request);
         String path="http://desk.fd.zol-img.com.cn/g5/M00/08/04/ChMkJ1YYut2ITmS1AAnqUpOxiT4AADgnQN7HxAACepq145.jpg";
       BitmapRequest request2 = new BitmapRequest(this, path, new BitmapRequest.Callback() {

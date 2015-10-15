@@ -27,14 +27,28 @@ public class StringRequest implements Request {
     private HashMap<String, Object> map;
     private static Handler handler = new Handler();
 
+    /**
+     * get 方式提交
+     * @param context 上下文
+     * @param url  地址
+     * @param callback  回调接口
+     */
     public StringRequest(Context context, String url, Callback callback) {
         this.callback = callback;
         this.context = context;
         this.url = url;
         this.method = HttpTools.GET;
+        mapHeader = new HashMap<>();
     }
 
-    public StringRequest(Callback callback, Context context, String url, HashMap<String, Object> map) {
+    /**
+     * POST 请求方式提交
+     * @param context
+     * @param url
+     * @param map
+     * @param callback
+     */
+    public StringRequest(Context context, String url, HashMap<String, Object> map,Callback callback) {
         this.callback = callback;
         this.context = context;
         this.url = url;
@@ -43,6 +57,9 @@ public class StringRequest implements Request {
         mapHeader = new HashMap<>();
     }
 
+    /**
+     * 会在网络线程执行
+     */
     @Override
     public void comment() {
 
@@ -57,7 +74,7 @@ public class StringRequest implements Request {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    callback.fail("ʧ��");
+                    callback.fail("ʧ��");
                 }
             });
 
@@ -74,7 +91,7 @@ public class StringRequest implements Request {
     }
 
     /**
-     * ����ͷ����Ϣ
+     * 设置消息头 如密钥等
      */
     @Override
     public void setHeader(HashMap<String, Object> mheader) {
