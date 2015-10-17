@@ -1,9 +1,11 @@
 package com.meluo.meluo.netutils.utils.httpUtis;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.zip.GZIPInputStream;
 
 /**
  * Created
@@ -38,9 +40,16 @@ public final class HttpTools {
                 StreamUtils.setRequestHeader(headmap, conn, "utf-8");
                 conn.connect();
 
+
                 int code = conn.getResponseCode();
                 if (code==200){
-                   ret= StreamUtils.readStream(conn.getInputStream());
+                    InputStream inputStream=conn.getInputStream();
+                    String encoding=conn.getContentEncoding();
+                    if("gzip".equals(encoding)){
+                        //判断是否采用GZIP压缩
+                        inputStream=new GZIPInputStream(inputStream);
+                    }
+                   ret= StreamUtils.readStream(inputStream);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
